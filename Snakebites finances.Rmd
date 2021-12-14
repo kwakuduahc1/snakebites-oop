@@ -1,0 +1,17 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r setup, include=FALSE}
+library(DBI)
+con <- dbConnect(odbc::odbc(), .connection_string = "Driver={ODBC Driver 17 for SQL Server};server=192.168.10.208;uid=sa;pwd=Ibrahim@66!88;database=Helix", timeout = 10)
+```
+
+```{r}
+bites <- dbGetQuery(con, "SELECT * FROM vw_snakebites")
+```
+
+```{r}
+Hmisc::label(bites, self = F) <- c(age = "Age", gender = "Gender", nhis = "NHIS", occup = "Occupation", outcome = "Outcome", los = "Length of stay", pid = "Patient ID", id = "Encounter ID")
+```

@@ -1,0 +1,42 @@
+<!-- Total OOP at the hospital by snakebite victims was `r inline_text(ftbl, variable = paid, pattern = "Sum(max) = {stat_0_1}, Median(IQR) =[{stat_0_2}]")` from 2016 to 2019 (Table \@ref(exptbl)) of which `r inline_text(ftbl, variable = drugs, pattern = "Sum (max) = {stat_0_1}, Median (IQR) =[{stat_0_2}]")` were payments made for drugs representing `r pay.tbl[2,2][[1]]` of all OOP during the period. Payments for admission was `r inline_text(ftbl, variable = wds, pattern = "Sum(max) = {stat_0_1}, Median(IQR) =[{stat_0_2}]")` accounting for `r pay.tbl[6,2][[1]]` of all OOP. -->
+
+<!-- ### Expenditure by health insurance status -->
+
+<!-- ```{r tab.cap = "Direct expenditure on healthcare following snakebites", tab.id = "tblexpsum", message=FALSE, warning=FALSE, comment=F} -->
+<!-- nhis <- pays %>% -->
+<!--   select(los, everything(), -c(id, gender, paid)) %>% -->
+<!--   mutate(nhis = fct_explicit_na(nhis)) -->
+
+<!-- Hmisc::label(nhis, self = F) = c(invs = "Investigations", cons = "Consultation", drugs = "Drugs", wds = "Admission", procs = "Procedures", svs = "Services", paid = "Total Payment", los = "Length of stay") -->
+
+<!-- nhis %>% -->
+<!--   tbl_summary(by = nhis, statistic = list(everything() ~ "{sum}"), type = list(los ~ "continuous")) %>% -->
+<!--   add_p() -->
+<!-- ``` -->
+
+<!-- For the period under review, a total of GHS `r sum(pays$drugs, na.rm = T)` was expended on the treatment of snakebites by victims. Expenditure on drugs constituted the largest, 56.49% (GHS116,728.18) of the total expenditure. The cost of services, including consultation and admission charges, was 25.57% (GHS 52,833.11) of the total expenditure. Finally, 17.94% (GHC 37,075.57) was spent on investigative/diagnostic procedures like blood clotting and full blood counts and X-rays. 56.46% (65,900.00) of the expenditure on drugs was through OOP, compared to 43.54%(GHS 50,828) that were NHIS claims. 90.49% (GHS 47808) of the total expenditure on services including consultation fees were paid for through OOP. Given there was the same number of victims with NHIS as those with not, it begs the question of how that arises. -->
+
+<!-- ## Discussions -->
+
+<!-- NHIS claims -->
+
+<!-- The total NHIS claims due to snakebites from 2016 to 2019 was GHS 74,107.46 accounting for 35.86% of all expenditure. 68.59% (GHS -->
+<!-- 50,828.00) of the NHIS claims was on drugs. The rests were services 6.78% (GHS 5, 025.00) and investigations 24.63% (GHS 18, 254.00). -->
+
+<!-- ## Out of pocket expenditure -->
+
+<!-- Total OOP by snakebite victims from 2016 to 2019 at the hospital was 64.14% (GHS 132,529.40) of the total expenditure as indicated in table 2. Drugs accounted for 49.73% (GHS 65,900.33) of the total OOP. Total payments due to services were 36.1% (GHS 47,807.00) and 14.2% (GHS 18,821) was paid for by clients for investigations. -->
+
+<!-- ## OOP by NHIS clients -->
+
+<!-- NHIS clients were not spared OOP expenditure. Total OOP by NHIS clients was 45,686.28 of which 90.54% was spent on drugs, the remaining being spent on investigations. -->
+
+<!-- ## Total expenditure -->
+
+<!-- Adding the OOP by NHIS clients to the total payments including claims bring the total expenditure to GHC 252,323.28. -->
+
+<!-- Patient-level payments OOP by NHIS clients NHIS Drugs Investigations Services Cash & Carry 24.2(65.57) 21(30) 70(75) NHIS 18.65(106.58) -->
+<!-- 12.84(44.96) 7(5) Table 3: summary statistics of patient payments The median(IQR) NHIS potential reimbursement for drugs for the period was GHS 18.65(106.58). The median(IQR) OOP was GHS 24.2(65.57), about 6 points higher for NHIS clients. The median cost of investigations was 12.84(44.96) which was about twice as low for OOP clients (Median(IQR) = 21(30). Payments for services was very different between the two groups. OOP clients paid 10 times more for services than NHIS clients. We have demonstrated that the cost of care for snakebite victims in a rural setting in Sub-Saharan Africa, the first of its kind in Sub-Saharan Africa to the best of our knowledge. Most victims of snakebites are males farmers and potentially low-income earners. The victims are mostly between the ages of 10 to 50 years. NHIS coverage is extrapolated to be low in the district given only 50% of the patients had medical insurance at the time they reported to the hospital with a case of snakebite. A total of GHS 206,636.86 was spent on snakebite victims from 2016 to 2019. The median cost for OOP clients was 137(152) compared to 20.4(64.1) for NHIS clients. The majority of the victims were Muslims, accounting for 63.05% (n=691) of all cases. This is not surprising as the majority of the population are Muslims. Hard to miss is the difference in median(IQR) payments for investigations and services for NHIS and OOP clients, 21(30) vs 12.84(44.96), and 70(75) vs 7(5), respectively. Could it be there is a systemic over-prescription of services and investigations for OOP clients or there is an under prescription for NHIS clients? It is our position that the differences of 2 and 10 times for investigations and services respectively deserve a study on its own. Recommendations It is important NHIS is expanded to cover poor people in rural areas through social schemes included subsidies. Additional research needs to be conducted to establish the full economic cost to clients following an episode of snakebite. -->
+
+
+<!-- # Reference -->

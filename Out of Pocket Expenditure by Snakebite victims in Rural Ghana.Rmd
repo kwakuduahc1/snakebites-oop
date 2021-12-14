@@ -1,0 +1,224 @@
+---
+date: "`r Sys.Date()`"
+author: "Ibrahim Duah Kwaku"
+title: "Out of pocket expenditure by snakebite victims in Ghana"
+bibliography: snakebites.bib
+csl: citestyle.csl
+documentclass: article
+fontsize: 12pt
+output: 
+  officedown::rdocx_document:
+    tables:
+      style: Table
+      layout: autofit
+      width: 1.0
+      caption:
+       style: "Table Caption"
+       pre: 'Table '
+       sep: ': '
+    plots:
+      style: Normal
+      align: center
+      caption:
+       style: "Image Caption"
+       pre: 'Figure '
+       sep: ': '
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, fig.cap = TRUE, warning = F, message = F, error = F)
+library(officedown)
+library(officer)
+library(tidyverse)
+library(gtsummary)
+library(scales)
+library(magrittr)
+library(ggpubr)
+library(flextable)
+bites <- readRDS("bites.rds")
+
+
+
+fp <- fp_par(
+  text.align = "center", 
+  padding.bottom = 20, padding.top = 120, 
+  border.bottom = fp_border())
+
+ft <- fp_text(shading.color='#EFEFEF', bold = TRUE)
+```
+
+\newpage
+
+This document presents most of the features of the package
+`r ftext("officedown", ft)`. `r fp`
+
+# Table of content
+
+<!---BLOCK_TOC--->
+
+# List of tables
+
+<!---BLOCK_TOC{seq_id: 'tab'}--->
+# List of figures
+
+<!---BLOCK_TOC{seq_id: 'fig'}--->
+
+# Abstract
+
+\newpage
+
+# Introduction
+
+Worldwide, snakebite victims are often the vulnerable poor rural folks[@Williams2019; @Kasturiratne2017]. Inequitable distribution of healthcare facilities and the lack of appropriate care exacerbates the plight of snakebite victims. An estimated 125,000 to 500,000 cases of snakebites occur annually in Africa even though most of them as thought to be undocumented[@Williams2011]. About 95,000 deaths occur annually globally from snakebites with only about 300,000 survivors[@TheLancet2017]. The survivors are often left with permanent disabilities or disfigurement, and are often left stigmatized and destitute[@TheLancet2019]. Life-threatening effects of snakebite envenoming include shock, spontaneous systemic bleeding, paralysis involving respiratory and skeletal muscles and can also lead to acute renal failure[@WHO2017]. Amputations, disfigurement, mutilations, and tissue necrosis are common complications of snakebite envenoming [@Gutierrez2006; @Habib2013]. The high morbidity and mortality associated with the bites result in high socioeconomic consequences[@WHO2017].
+
+Victims of snakebites require a range of services. The services may range from antivenom administration plus supplementary medical interventions such as cardio-respiratory and/or fluid resuscitation; airway intubation; mechanical ventilation; hemodialysis; wound debridement and reconstructive surgery; physiotherapy; and other rehabilitation services[@WHO2017]. Unfortunately, these services are not usually available in primary care health settings (Community-based Health Services and Planning) in rural Ghana where a lot of the cases occur. In situations where they are available, they are not cheap. Snakebite victims therefore often start by going to traditional healers or use ineffective or unproven methods before seeking hospital care, resulting in delays in the administration of antivenoms which results in complications and possible mortality[@Chippaux2017; @Fry2018].
+
+The socioeconomic impact of snakebite is under-appreciated around the world, even though the impact transcends individuals and families into communities and the health system[@Habib2018]. It is estimated the burden to some families to be as much as their 12-year salary [@Vaiyapuri2013]. The average cost for an effective treatment, based on recommended doses to be USD 124 in Sub-Saharan Africa @Brown2012, 4 times the minimum monthly wage in Ghana then[@Africapay.org]. In The Sri Lanka, 79% of snakebite victims suffered an economic loss following a snakebite with a median Out of Pocket Payments(OOP) of USD 11 and a median estimated loss of income of USD 28.57 and USD 33.21 for those in
+employment or self-employment, respectively[@Kasturiratne2017]. The total estimated OOP in the country was USD 1,981,699[@Kasturiratne2017]. Additionally, family members also lost income to help care for patients. In India, 53.5% of snakebite victims spent 1 to 6 months or more at home after the bite, 43.5% of the victims had to sell an asset due to
+snakebites, with the majority having to sell their farm crops. Four of the victims had to forfeit their education because of the bite, an unfortunate incident that must not happen. The annual estimated total number of DALYs was 11,101 to 15,076 per year for envenoming following snakebite[@Vaiyapuri2013].
+
+The health system cost for The Sri Lanka was estimated to be USD 10,260,652 annually[@Kasturiratne2017]. Using the conservative estimate from @Brown2012, then multiplying by the average yearly incidence in Ghana (9600)[@Ardayfio2020], it can be estimated that the government of Ghana spend an average of USD 1,190,400 on antivenoms since they are free in Ghana.
+
+To the best of our knowledge, no studies exist in sub-Saharan Africa which reports the OOP experienced by snakebite victims. The study, therefore, reports the direct OOP by snakebite victims in rural Ghana.
+
+# Methods
+
+## Ethics statement
+
+This study has ethical approval from the Ghana Health Service. The reference number for it is GHS-ERC010/03/20. It is part of the Snakebite Incidence Treatment and Effect in Ghana (SnakebITE) project being run by the author[]. Permission was also sought from the administration of the hospital to extract records from their electronic health records (EHR). The OOP by snakebite victims Data were extracted from the electronic health records database of the hospital. The hospital has used the system since 2015. Author[] can script in Transactional-Structured Query Language (T-SQL) and used his knowledge to extract the records from the database. A total of `r nrow(bites)` were retrieved from the database.
+
+Statistical analysis was done with R (4.1.2). Frequencies and percentages were recorded for the count variables. The median cost with interquartile range was reported for the cost of care and length of stay. A regression model was fitted to estimate the predictors of cost and length of stay at the hospital.
+
+# Results and analysis
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+dem <- bites %>% 
+  select(age, gender, year, seas, nhis, occup, act, outcome, los) %>% 
+   tbl_summary(type = list(nhis ~ "categorical"))
+```
+
+We report cases of snakebites reported at a public hospital from 2016 to 2019 (Table \@ref(tab:tbldem)). A total of `r comma(nrow(bites))` records were retrieved from the EHR. The median (IQR) age of the victims was `r inline_text(dem, variable = age)`. Most of the snakebite victims were males `r inline_text(dem, variable = gender, level = "Male")`, and a lot of the cases were reported in 2018 `r inline_text(dem, variable = year, level = "2018")`. The primary occupation of most of the victims was farming `r inline_text(dem, variable = occup, level = "Farmer")`, `r inline_text(dem, variable = occup, level = "Student")` were students, `r inline_text(dem, variable = occup, level = "Student")` engaged in other occupations. The primary occupation of  `r inline_text(dem, variable = occup, level = "Unknown")` of the victims was not indicted in the EHR. A total of `r inline_text(dem, variable = seas, level = "Dry")` were reported in the dry season and `r inline_text(dem, variable = act, level = "Irrigation/hunting")` were recorded during periods where the main farming activity were irrigation farming only and hunting. Most of the victims [`r inline_text(dem, variable = outcome, level = "Successful treatment")`] were treated successfully at the hospital and were discharged. The median (IQR) length of stay of the victims at the hospital was `r inline_text(dem, variable = los)`.
+
+
+```{r tab.id="tbldem", tab.cap="Demographic characteristics of snakebite victims extracted from EHR"}
+dem %>% 
+  as_flex_table()
+```
+
+## OOP for snakebite care at the hospital
+```{r}
+pay.smry <- bites %>% 
+  tbl_continuous(variable = paid, include = c(mode, gender, year, seas, act, outcome)) 
+
+pay.sum <- bites %>% 
+  tbl_continuous(variable = paid, include = c(mode, gender, year, seas, act, outcome), statistic = list(everything() ~ "{sum}")) 
+
+pay.ttl <- bites %>% 
+  tbl_continuous(variable = paid, include = c(gender, year, seas, act, outcome),  by = mode)
+
+oop.tbl <- tbl_merge(
+  list(
+    tot = pay.sum,
+    smry = pay.smry,
+    ttl = pay.ttl
+  ),
+  tab_spanner = c("Total", "Median(IQR)", "Breakdown")
+) 
+```
+
+The total OOP from 2016 to 2019 at the hospital was USD `r sum(bites$paid) %>% comma()` (Table \@ref(tab:pay-smry)) of which `r inline_text(oop.tbl, variable = mode, level = "NHIS", pattern = "{stat_0_1}")` were payments made by victims that had the NHIS at the time of admissions and `r inline_text(oop.tbl, variable = mode, level = "Cash & Carry", pattern = "{stat_0_1}")` were paid by victims without an insurance cover. The median amount paid by NHIS clients was `r inline_text(oop.tbl, variable = mode, level = "NHIS", pattern = "{stat_0_2}")` compared to a median (IQR) of `r inline_text(oop.tbl, variable = mode, level = "Cash & Carry", pattern = "{stat_0_2}")` by non-insured clients. The total OOP by males was `r inline_text(oop.tbl, variable = gender, level = "Male", pattern = "{stat_0_1}")` compared to `r inline_text(oop.tbl, variable = gender, level = "Female", pattern = "{stat_0_1}")` among females. The median (IQR) OOP between gender was relatively similar even though it was higher in males [`r inline_text(oop.tbl, variable = gender, level = "Male", pattern = "{stat_0_2}")`] compared to females [`r inline_text(oop.tbl, variable = gender, level = "Female", pattern = "{stat_0_2}")`]. When the insurance cover of the victims was taken into account, uninsured victims paid over 4 times as much as those with insurance paid, with very little differences between males and females. From 2016 to 2018, there was a steady increase in the total OP for snakebite victims at the hospital. However, the total OOP trippled from about USD 10,500 to almost USD 30,000. In response, the median increased by about a factor or 4 from USD 22 in 2018 to USD 97 in 2019. The situation was dire for non-insured clients when the median(IQR) increased from `r inline_text(oop.tbl, variable = year, level = "2018", pattern = "{stat_1_3}")` in 2018 to `r inline_text(oop.tbl, variable = year, level = "2019", pattern = "{stat_1_3}")` in 2019. The insured clients were not spared the surge, paying a median(IQR) of `r inline_text(oop.tbl, variable = year, level = "2018", pattern = "{stat_2_3}")` in 2018 then `r inline_text(oop.tbl, variable = year, level = "2019", pattern = "{stat_2_3}")`. For a successful treatment, victims without an insurance cover  paid a median(IQR) of `r inline_text(oop.tbl, variable = outcome, level = "Successful treatment", pattern = "{stat_1_3}")` compared to `r inline_text(oop.tbl, variable = outcome, level = "Successful treatment", pattern = "{stat_2_3}")` who had an insurance cover. There were only 2 clients who had an insurance cover and died.
+
+```{r payment-summary, tab.id="pay-smry", tab.cap = "Summary of OOP experienced by snakebite victims"}
+oop.tbl %>% 
+  as_flex_table()
+```
+
+### OOP by services received
+
+```{r trend-of-oop, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.cap="Scatterplot of OOP and age (L) and LoS (R)", fig.id = "oop-trend"}
+age.pay <- bites %>% 
+  ggscatter(x = "age", y = "paid", color = "mode", alpha = 0.4, ylab = "Amount paid", xlab = "Age", legend.title = "Gender")
+
+los.pay <- bites %>% 
+  ggscatter(x = "los", y = "paid", color = "mode", alpha = 0.4, ylab = "Amount paid", xlab = "Length of Stay", legend.title = "Gender")
+
+ggarrange(age.pay, los.pay, common.legend = T) 
+```
+
+
+```{r oop-trend, include=FALSE,warning=FALSE, message=FALSE, fig.cap = "Trend of OOP between victims with and without insurance cover at the time of the bite", fig.id="oop-trend"}
+pay.smry <- bites %>%
+  group_by(year, mode) %>%
+  summarise(
+    median = median(paid),
+    sec = quantile(paid)[2],
+    third = quantile(paid)[4]
+  ) %>%
+  pivot_longer(c(median, sec,third)) %>%
+  mutate(
+    name = fct_relevel(name, "third", "median", "sec"),
+    name = fct_recode(name, "75%" = "third", "Median" = "median", "25%" = "sec")
+  ) 
+pay.smry %>%
+  ggline(x = "year", y = "value", color = "name", facet.by = "mode", legend.title = "Percentile", xlab = "Year", ylab = "OOP amount (USD)")
+```
+
+```{r include=FALSE}
+pay.yr.gp <- bites %>%
+  ggdotplot(x = "year", y = "paid", fill = "mode", legend.title = "Payment", alpha = .35, ylab = "OOP (USD)", xlab = "Year")
+```
+
+
+```{r include=FALSE, fig.width=12}
+p1 <- bites %>%
+  select(paid, cons:exems, mode) %>%
+  tbl_summary(by = mode, digits = list(everything() ~ 1)) %>% add_p()
+
+p2 <- bites %>%
+  select(paid, cons:exems, mode) %>%
+  tbl_summary(by = mode, digits = list(everything() ~ 0), statistic = list(everything() ~ "{sum}")) %>% add_overall(last = T, col_label = "Total")
+
+ftbl <- tbl_merge(list("Maximum" = p2, "Median" = p1 ), tab_spanner = c("Total", "Summary")) 
+```
+
+```{r include=FALSE}
+pay.tbl <- bites %>% 
+  select(id, cons:svs) %>% 
+  sjlabelled::drop_labels() %>% 
+  pivot_longer(c(cons:svs), names_to = "item", values_to = "cost") %>%
+  mutate(
+    item = fct_recode(item, "Consultation" = "cons", "Drugs" = "drugs", "Services" = "svs")) %>%
+  group_by(item) %>%
+  summarise(
+    Cost = round(sum(cost, na.rm = T), 2),
+    Median = round(median(cost, na.rm = T), 1),
+    IQR = str_glue("{round(quantile(cost)[2],2)} - {round(quantile(cost)[4],2)}")
+    ) %>%
+  mutate(
+    Percent = percent(round(Cost/sum(Cost), 3)) 
+    ) %>%
+  arrange(item)
+```
+
+OOP on accounts of purchasing drug were USD 34,974.08 accounting for 57% of all OOP with a median(IQR)= 4.4(1.46 - 18.81) (\@ref(tab:svs-smry)). This was followed by the provision of other services accounting for 36%, [Median(IQR) = 11.6(3.68 - 21.81)]. Such services included ward admissions, wound dressing, x-rays, etc. Lastly, USD 4,034.19 were OOP for consultation amounting to 7% [Median(IQR) = 3.3(1.54 - 4.14)]. 
+
+```{r services-percents, tab.id="svs-smry", tab.cap = "OOP by services received"}
+flextable(pay.tbl, cwidth = c(1,1,.5, 1, .5))
+```
+
+### Payments by mode of Insurance status
+
+As indicated earlier, total OOP at the hospital was USD `r inline_text(ftbl, variable = paid, pattern="{stat_0_1}")`, of which `r inline_text(ftbl, variable = paid, pattern="{stat_1_1}")` were by victims without an insurance cover at the time of admission. The median(IQR) was `r inline_text(ftbl, variable = paid, pattern="{stat_1_2}")` and `r inline_text(ftbl, variable = paid, pattern="{stat_2_2}")` for clients without insurance and those with the NHIS respectively. The median difference was statistically very significant. Victims without a health insurance cover paid a total of USD `r inline_text(ftbl, variable = cons, pattern="{stat_1_1}")` for consultation compared to USD `r inline_text(ftbl, variable = cons, pattern="{stat_2_1}")` among victims with the NHIS. bringing it to a total of `r inline_text(ftbl, variable = cons, pattern="{stat_0_1}")`. The median payment for consultation for victims without an insurance cover at the time of admission was `r inline_text(ftbl, variable = cons, pattern="{stat_1_2}")` compared to a median(IQR) of `r inline_text(ftbl, variable = cons, pattern="{stat_2_2}")` among victims with an insurance cover. The difference in medians again was statistically significant. Through the hospitals exemptions policy, and amount of USD 140 was exempted from patients with a health insurance cover but only USD 71 was exempted from those without an insurance. The median exempted amount was statistically different between those with an insurance cover and those without insurance. Table \@ref(tab:exptbl) details the breakdown of payments from drugs and other services at the hospital.
+
+```{r echo=FALSE, tab.cap="Summary of payments by snakebite victims", tab.id="exptbl",  fig.align='center', warning=FALSE, message=FALSE, error=FALSE}
+ftbl
+```
+
+
+## Discussions
+
+\newpage
+# Reference
