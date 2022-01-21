@@ -13,3 +13,9 @@ Data was extracted from the hospital's electronic health records and analysed us
 - magrittr
 - ggpubr
 - flextable
+
+## Getting the report
+Press the knit button to produce the word document
+
+## Data
+Only 20 records are pushed to the repository for obvious reasons (Ethical violations etc.). However, the full report may be available for reading. When the paper is published, details would be make available here.
