@@ -6,7 +6,7 @@ library(tidyverse)
 
 
 
-con <- dbConnect(odbc::odbc(), .connection_string = "Driver={ODBC Driver 17 for SQL Server};server=192.168.10.208;uid=sa;pwd=Ibrahim@66!88;database=Helix", timeout = 10)
+#con <- dbConnect(odbc::odbc(), .connection_string = "Driver={ODBC Driver 17 for SQL Server};server=192.168.10.208;uid=sa;pwd=Ibrahim@66!88;database=Helix", timeout = 10)
 
 # qry = "SELECT * FROM vw_snakebites"
 # bites <- dbGetQuery(con, qry)

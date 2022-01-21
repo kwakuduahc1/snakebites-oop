@@ -3,6 +3,7 @@
 .RData
 .Ruserdata
 .pdf
-
 /bites.rds
 /wrangler.R
+/payments.rds
+wrangler.R
