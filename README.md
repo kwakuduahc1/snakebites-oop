@@ -15,7 +15,8 @@ Data was extracted from the hospital's electronic health records and analysed us
 - flextable
 
 ## Getting the report
-Press the knit button to produce the word document
+- In the RMD document, change the file name to `sample bites.rds` to make it work.
+- Press the knit button to produce the word document
 
 ## Data
 Only 20 records are pushed to the repository for obvious reasons (Ethical violations etc.). However, the full report may be available for reading. When the paper is published, details would be make available here.

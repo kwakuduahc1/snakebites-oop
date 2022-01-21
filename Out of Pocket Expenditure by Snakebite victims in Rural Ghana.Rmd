@@ -41,7 +41,6 @@ library(flextable)
 bites <- readRDS("bites.rds")
 
 
-
 fp <- fp_par(
   text.align = "center", 
   padding.bottom = 20, padding.top = 120, 

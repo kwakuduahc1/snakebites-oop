@@ -67,3 +67,9 @@ write_rds(bites, "bites.rds")
 mn <- mean(bites[bites$los < 100, "los"], na.rm = T)
 sd <- sd(bites[bites$los < 100, "los"], na.rm = T) 
 out <- mn + (sd * 3)
+
+sids <- sample(bites$id, 20)
+
+smpl <- bites[bites$id %in% sids,]
+
+write_rds(smpl, "sample bites.rds")
