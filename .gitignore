@@ -3,5 +3,6 @@
 .RData
 .Ruserdata
 .pdf
-bites.rds
-wrangler.R
+
+/bites.rds
+/wrangler.R
