@@ -1,0 +1,9 @@
+model
+{
+    beta ~ dnorm(1.00000E-09, 0.001)
+    alpha ~ dnorm(1.00000E-08, 0.001)
+    for (i in 1:n) {
+        mu[i] <- alpha + beta * age[i]
+        y[i] ~ dnorm(mu[i], 1.00000E-04)
+    }
+}
