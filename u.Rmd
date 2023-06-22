@@ -1,0 +1,51 @@
+---
+date: "`r Sys.Date()`"
+author: "Your Name"
+title: "officedown template"
+always_allow_html: true
+output: 
+  officedown::rdocx_document:
+    mapstyles:
+      Normal: ['First Paragraph']
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.cap = TRUE)
+library(officedown)
+library(officer)
+
+fp <- fp_par(
+  text.align = "center", 
+  padding.bottom = 20, padding.top = 120, 
+  border.bottom = fp_border())
+
+ft <- fp_text(shading.color='#EFEFEF', bold = TRUE)
+
+hd <- mtcars[,1:3] |> head()
+```
+
+## Render with gt
+```{r}
+hd |>
+  gt::gt() |> print()
+```
+
+## Render with gt (results = asis)
+```{r results='asis'}
+hd |>
+  gt::gt() |> print()
+```
+
+## Render with gt (results = hold)
+```{r results='hold'}
+hd |>
+  gt::gt()
+```
+
+## Render with pander
+```{r}
+hd |>
+  pander::pander()
+```
+
+
